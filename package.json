@@ -4,20 +4,32 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node -r module-alias/register ./build",
+    "build": "ts-node build.ts",
     "dev": "SET DEBUG=express-ts-fullstack-template:* & nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "_moduleAliases": {
+    "@routes": "build/routes",
+    "@utilities": "build/utilities",
+    "@public": "build/public",
+    "@views": "build/views"
+  },
   "dependencies": {
     "@types/debug": "^4.1.7",
     "debug": "^4.3.3",
     "dotenv": "^10.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "fs-extra": "^10.0.0",
+    "http-status-codes": "^2.2.0",
+    "module-alias": "^2.2.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^17.0.8",
     "nodemon": "^2.0.15",
     "ts-node": "^10.4.0",
