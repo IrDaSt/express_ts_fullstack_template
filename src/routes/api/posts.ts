@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import { body, validationResult, query } from 'express-validator'
 import responses from '@utilities/responses'
-import { Request, Response, Router } from 'express'
-import { getAllPosts, getOnePostById } from 'src/services/api/posts.services'
+import { NextFunction, Request, Response, Router } from 'express'
+import upload from '@middlewares/multer'
+import postsServices from '@services/api/posts.services'
 
 const postsRouterApi = Router()
 
@@ -9,7 +12,7 @@ postsRouterApi.get('/', async (req: Request, res: Response) => {
   const { id_post } = req.query
   try {
     if (id_post) {
-      const post = await getOnePostById(id_post.toString())
+      const post = await postsServices.getOnePostById(id_post.toString())
       if (post) {
         return responses.Success(res, post)
       } else {
@@ -18,12 +21,36 @@ postsRouterApi.get('/', async (req: Request, res: Response) => {
         })
       }
     } else {
-      const posts = await getAllPosts()
+      const posts = await postsServices.getAllPosts()
       return responses.Success(res, posts)
     }
   } catch (error) {
     return responses.InternalServerError(res, error)
   }
 })
+
+postsRouterApi.post(
+  '/create',
+  upload.fields([]),
+  body('title_post').notEmpty().withMessage('title_post required'),
+  async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return responses.BadRequest(res, errors.array())
+    }
+
+    const { title_post, description_post } = req.body
+    try {
+      const result_insert_post = await postsServices.create({
+        title_post,
+        description_post: description_post ?? null,
+      })
+      return responses.Success(res, result_insert_post)
+    } catch (error) {
+      responses.InternalServerError(res, error)
+      next(error)
+    }
+  },
+)
 
 export default postsRouterApi
