@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express, { Request, Response } from 'express'
 import morgan from 'morgan'
 import path from 'path'
 import cookieParser from 'cookie-parser'
@@ -21,9 +21,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
-const pad = (num: number) => {
-  return (num > 9 ? '' : '0') + num
-}
+const pad = (num: number) => (num > 9 ? '' : '0') + num
 
 // Create a rotating write stream for Logging system
 const generator: rfs.Generator = (
@@ -99,7 +97,7 @@ app.use(function (req, res, next) {
 })
 
 // error handler
-app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
+app.use(function (err: any, req: Request, res: Response) {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}

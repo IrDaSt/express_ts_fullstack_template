@@ -1,7 +1,7 @@
 {
   "name": "express_ts_fullstack_template",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express Boilerplate Template Example with Typescript",
   "main": "index.js",
   "scripts": {
     "start": "node -r module-alias/register ./build",
