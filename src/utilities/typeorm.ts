@@ -1,5 +1,5 @@
 import config from '@constants/config'
-import Posts from 'src/services/api/entities/posts.entity'
+import { PostsEntity } from '@services/entities/posts.entity'
 import { Connection, createConnection } from 'typeorm'
 
 const connection_one = createConnection({
@@ -11,7 +11,7 @@ const connection_one = createConnection({
   password: config.database.one.password,
   database: config.database.one.database,
   synchronize: false,
-  entities: [Posts],
+  entities: [PostsEntity],
 })
 
 class TypeOrmConnection {

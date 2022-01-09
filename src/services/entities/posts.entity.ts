@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm'
 
-const Posts = new EntitySchema({
+export const PostsEntity = new EntitySchema({
   // Will use table name `post` as default behaviour.
   name: 'Posts',
   // Optional: Provide `tableName` property to override the default behaviour for table name.
@@ -27,5 +27,3 @@ const Posts = new EntitySchema({
     },
   },
 })
-
-export default Posts
