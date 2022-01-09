@@ -1,13 +1,16 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import helmet from 'helmet'
 import * as rfs from 'rotating-file-stream'
+import createHttpError from 'http-errors'
+import swaggerUi from 'swagger-ui-express'
 
 import webRouter from '@routes/web'
 import apiRouter from '@routes/api'
+import swaggerConfig from './swagger/swagger-config'
 
 const app = express()
 
@@ -78,7 +81,33 @@ app.use(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+// Swagger UI
+app.use(
+  '/api-docs',
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  swaggerUi.serve,
+  swaggerUi.setup({ ...swaggerConfig }, { explorer: false }),
+)
+
+// Routing
 app.use('/api', apiRouter)
 app.use('/', webRouter)
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createHttpError(404))
+})
+
+// error handler
+app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
+  // set locals, only providing error in development
+  res.locals.message = err.message
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
+
+  // render the error page
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  res.status(err.status || 500)
+  res.render('pages/error')
+})
 
 export default app
