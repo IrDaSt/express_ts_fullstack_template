@@ -4,6 +4,7 @@ import path from 'path'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import helmet from 'helmet'
+import * as rfs from 'rotating-file-stream'
 
 import webRouter from '@routes/web'
 import apiRouter from '@routes/api'
@@ -16,6 +17,41 @@ if (process.env.NODE_ENV === 'development') {
 
   app.use(morgan('dev'))
 }
+
+const pad = (num: number) => {
+  return (num > 9 ? '' : '0') + num
+}
+
+// Create a rotating write stream for Logging system
+const generator: rfs.Generator = (
+  time: Date | number,
+  index: number | undefined,
+) => {
+  if (!time) return 'access.log'
+
+  if (typeof time !== 'number') {
+    const month = time.getFullYear() + '-' + pad(time.getMonth() + 1)
+    const day = pad(time.getDate())
+    const hour = pad(time.getHours())
+    const minute = pad(time.getMinutes())
+    return `${month}/${month}${day}-${hour}${minute}-${
+      index ?? ''
+    }-access.log.gzip`
+  } else {
+    return 'access.log'
+  }
+}
+
+const accessLogStream = rfs.createStream(generator, {
+  size: '10M', // rotate every 10 MegaBytes written
+  interval: '1d', // rotate daily
+  compress: 'gzip', // compress rotated files
+  path: 'logs', // place access log file to log folder
+})
+
+// Use Morgan Logging system
+// Stream logs to file
+app.use(morgan('combined', { stream: accessLogStream }))
 
 // Json Parser
 app.use(express.json())
