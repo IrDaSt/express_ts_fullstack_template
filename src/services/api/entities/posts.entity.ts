@@ -1,8 +1,10 @@
 import { EntitySchema } from 'typeorm'
 
 const Posts = new EntitySchema({
-  name: 'Posts', // Will use table name `post` as default behaviour.
-  tableName: 'posts', // Optional: Provide `tableName` property to override the default behaviour for table name.
+  // Will use table name `post` as default behaviour.
+  name: 'Posts',
+  // Optional: Provide `tableName` property to override the default behaviour for table name.
+  tableName: 'posts',
   columns: {
     id_post: {
       primary: true,

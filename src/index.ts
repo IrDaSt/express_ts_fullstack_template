@@ -45,15 +45,17 @@ function onError(error: any) {
     throw error
   }
 
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
+      // eslint-disable-next-line no-console
       console.error(bind + ' requires elevated privileges')
       process.exit(1)
       break
     case 'EADDRINUSE':
+      // eslint-disable-next-line no-console
       console.error(bind + ' is already in use')
       process.exit(1)
       break
@@ -67,7 +69,7 @@ function onError(error: any) {
  */
 
 function onListening() {
-  var addr = server.address()
+  const addr = server.address()
   // var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   if (typeof addr !== 'string')
     debug('Listening on http://localhost:' + addr?.port)

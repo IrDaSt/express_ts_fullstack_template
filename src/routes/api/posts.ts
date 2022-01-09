@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import responses from '@utilities/responses'
 import { Request, Response, Router } from 'express'
 import { getAllPosts } from 'src/services/api/posts.services'

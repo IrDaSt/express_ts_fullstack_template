@@ -19,6 +19,40 @@
     "@middlewares": "build/middlewares",
     "@constants": "build/constants"
   },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "max-len": [
+        "error",
+        {
+          "code": 100
+        }
+      ],
+      "no-console": 1,
+      "no-extra-boolean-cast": 0,
+      "@typescript-eslint/restrict-plus-operands": 0,
+      "@typescript-eslint/explicit-module-boundary-types": 0,
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-floating-promises": 0,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-assignment": 0
+    }
+  },
+  "eslintIgnore": [
+    "src/public/",
+    "build.ts"
+  ],
   "dependencies": {
     "@types/debug": "^4.1.7",
     "debug": "^4.3.3",
@@ -40,6 +74,9 @@
     "@types/morgan": "^1.9.3",
     "@types/multer": "^1.4.7",
     "@types/node": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "eslint": "^8.6.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "ts-node": "^10.4.0",

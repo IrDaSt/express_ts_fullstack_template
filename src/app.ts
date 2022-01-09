@@ -1,5 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express'
-import createHttpError from 'http-errors'
+import express from 'express'
 import morgan from 'morgan'
 import path from 'path'
 
@@ -9,6 +8,7 @@ import apiRouter from '@routes/api'
 const app = express()
 
 if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line no-console
   console.log('Development mode')
 
   app.use(morgan('dev'))

@@ -23,7 +23,9 @@ class TypeOrmConnection {
         this.connection_one = conn
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log('database connection_one error')
+        // eslint-disable-next-line no-console
         console.log(err)
         return
       })
