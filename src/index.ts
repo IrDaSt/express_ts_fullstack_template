@@ -12,7 +12,7 @@ import app from './app'
  * Get port from environment and store in Express.
  */
 
-const port = Number(process.env.PORT || '3000')
+const port = Number(process.env.PORT || '4000')
 app.set('port', port)
 
 /**

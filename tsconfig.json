@@ -70,6 +70,9 @@
       ],
       "@views/*": [
         "src/views/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
       ]
     },
   },
