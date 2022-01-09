@@ -68,8 +68,8 @@
       "@public/*": [
         "src/public/*"
       ],
-      "@views/*": [
-        "src/views/*"
+      "@middlewares/*": [
+        "src/middlewares/*"
       ],
       "@constants/*": [
         "src/constants/*"

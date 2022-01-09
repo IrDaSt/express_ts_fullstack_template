@@ -1,10 +1,10 @@
 const config = {
-  port: process.env.PORT || '4000',
+  port: Number(process.env.PORT || '4000'),
   database: {
     one: {
       host: process.env.DB_HOST || 'localhost',
       user: process.env.DB_USER || 'admin',
-      port: process.env.DB_PORT || 3306,
+      port: Number(process.env.DB_PORT || 3306),
       password: process.env.DB_PASSWORD || 'admin',
       database: process.env.DB_NAME || 'express_rest_api',
     },
