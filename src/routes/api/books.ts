@@ -15,7 +15,7 @@ booksRouterApi.get(
       const books: Array<BooksModel> = await booksServices.getAllBooks()
       responses.Success(res, books)
     } catch (error) {
-      responses.InternalServerError(res, error)
+      responses.InternalServerErrorCatch(res, error)
       next(error)
     }
   },
@@ -39,7 +39,7 @@ booksRouterApi.post(
       })
       responses.Created(res, result_insert_book)
     } catch (error) {
-      responses.InternalServerError(res, error)
+      responses.InternalServerErrorCatch(res, error)
       next(error)
     }
   },

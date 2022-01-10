@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan'
 import path from 'path'
 import cookieParser from 'cookie-parser'
@@ -92,20 +92,19 @@ app.use('/api', apiRouter)
 app.use('/', webRouter)
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req: Request, res: Response, next: NextFunction) {
   next(createHttpError(404))
 })
 
 // error handler
-app.use(function (err: any, req: Request, res: Response) {
+app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+  const message = err.message
+  const error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   res.status(err.status || 500)
-  res.render('pages/error')
+  res.render('pages/error', { message, error })
 })
 
 export default app

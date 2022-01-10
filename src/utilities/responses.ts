@@ -74,14 +74,27 @@ const InternalServerError = (res: Response, error: any) =>
     }),
   )
 
+const InternalServerErrorCatch = (res: Response, error: any) =>
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
+    responseCustom({
+      status_code: StatusCodes.INTERNAL_SERVER_ERROR,
+      status_message: 'error',
+      error: {
+        message: error.message,
+        stack: error.stack,
+      },
+    }),
+  )
+
 const responses = {
   Success,
   Created,
   Unauthorized,
-  InternalServerError,
   BadRequest,
   NotFound,
   responseCustom,
+  InternalServerError,
+  InternalServerErrorCatch,
 }
 
 export default responses

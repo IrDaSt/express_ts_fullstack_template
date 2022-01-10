@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import * as uuid from 'uuid'
 
-const generateUUIDV4 = () => uuid.v4()
+const generateUUIDV4 = (): string => {
+  const uid: string = uuid.v4()
+  return uid
+}
 
 const uuidHelper = {
   generateUUIDV4,
