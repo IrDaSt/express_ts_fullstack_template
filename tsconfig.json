@@ -71,9 +71,6 @@
       "@utilities/*": [
         "src/utilities/*"
       ],
-      "@public/*": [
-        "public/*"
-      ],
       "@middlewares/*": [
         "src/middlewares/*"
       ],
