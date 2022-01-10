@@ -1,12 +1,14 @@
 {
   "name": "express_ts_fullstack_template",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Express Boilerplate Template Example with Typescript",
   "main": "index.js",
   "scripts": {
     "start": "node -r module-alias/register ./build",
     "build": "ts-node build.ts",
+    "build:scss": "node-sass --recursive --output-style compressed -o ./src/public/dist/css ./src/public/scss/", 
     "dev": "SET DEBUG=express-ts-fullstack-template:* & nodemon",
+    "dev:scss:watch": "npm run build:scss && node-sass --recursive --output-style compressed -wo ./src/public/dist/css ./src/public/scss/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -93,6 +95,7 @@
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.6.0",
     "morgan": "^1.10.0",
+    "node-sass": "^7.0.1",
     "nodemon": "^2.0.15",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.12.0",
