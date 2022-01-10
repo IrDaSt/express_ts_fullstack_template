@@ -1,6 +1,6 @@
 {
   "name": "express_ts_fullstack_template",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Express Boilerplate Template Example with Typescript",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,6 @@
     "@services": "build/services",
     "@models": "build/models",
     "@utilities": "build/utilities",
-    "@public": "public",
     "@middlewares": "build/middlewares",
     "@constants": "build/constants",
     "@custom-types": "build/custom-types"
