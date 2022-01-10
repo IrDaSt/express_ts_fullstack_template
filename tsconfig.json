@@ -79,6 +79,9 @@
       ],
       "@constants/*": [
         "src/constants/*"
+      ],
+      "@custom-types/*": [
+        "src/custom-types/*"
       ]
     },
   },

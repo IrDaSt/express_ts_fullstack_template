@@ -6,7 +6,7 @@ import jwtHelper from '@utilities/jsonwebtoken'
 import responses from '@utilities/responses'
 import { NextFunction, Request, Response, Router } from 'express'
 import { body, validationResult } from 'express-validator'
-import { CustomExpressRequest } from 'src/types/custom-express-request.type'
+import { CustomExpressRequest } from '@custom-types/custom-express-request.type'
 import { InsertResult } from 'typeorm'
 
 const authRouterApi = Router()

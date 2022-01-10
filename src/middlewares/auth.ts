@@ -4,7 +4,7 @@ import userServices from '@services/api/user.services'
 import responses from '@utilities/responses'
 import { NextFunction, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { CustomExpressRequest } from 'src/types/custom-express-request.type'
+import { CustomExpressRequest } from '@custom-types/custom-express-request.type'
 
 const verifyToken = (
   req: CustomExpressRequest,
