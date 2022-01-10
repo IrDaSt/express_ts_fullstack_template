@@ -1,4 +1,4 @@
-import { PostsEntity } from '@services/entities/posts.entity'
+import { PostsEntity } from '@models/entities/posts.entity'
 import typeormconn from '@utilities/typeorm'
 import uuidHelper from '@utilities/uuid'
 
