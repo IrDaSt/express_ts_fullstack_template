@@ -7,26 +7,30 @@ import postsServices from '@services/api/posts.services'
 
 const postsRouterApi = Router()
 
-postsRouterApi.get('/', async (req: Request, res: Response) => {
-  const { id_post } = req.query
-  try {
-    if (id_post) {
-      const post = await postsServices.getOnePostById(id_post.toString())
-      if (post) {
-        return responses.Success(res, post)
+postsRouterApi.get(
+  '/',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id_post } = req.query
+    try {
+      if (id_post) {
+        const post = await postsServices.getOnePostById(id_post.toString())
+        if (post) {
+          return responses.Success(res, post)
+        } else {
+          return responses.NotFound(res, {
+            message: 'post not found',
+          })
+        }
       } else {
-        return responses.NotFound(res, {
-          message: 'post not found',
-        })
+        const posts = await postsServices.getAllPosts()
+        return responses.Success(res, posts)
       }
-    } else {
-      const posts = await postsServices.getAllPosts()
-      return responses.Success(res, posts)
+    } catch (error) {
+      responses.InternalServerErrorCatch(res, error)
+      next(error)
     }
-  } catch (error) {
-    return responses.InternalServerError(res, error)
-  }
-})
+  },
+)
 
 postsRouterApi.post(
   '/create',
@@ -46,7 +50,7 @@ postsRouterApi.post(
       })
       return responses.Success(res, result_insert_post)
     } catch (error) {
-      responses.InternalServerError(res, error)
+      responses.InternalServerErrorCatch(res, error)
       next(error)
     }
   },
