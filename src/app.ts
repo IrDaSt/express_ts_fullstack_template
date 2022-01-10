@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan'
 import path from 'path'
@@ -84,7 +83,6 @@ app.set('view engine', 'ejs')
 // Swagger UI
 app.use(
   '/api-docs',
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   swaggerUi.serve,
   swaggerUi.setup({ ...swaggerConfig }, { explorer: false }),
 )

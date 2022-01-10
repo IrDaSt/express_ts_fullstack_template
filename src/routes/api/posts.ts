@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { body, validationResult } from 'express-validator'
 import responses from '@utilities/responses'
 import { NextFunction, Request, Response, Router } from 'express'

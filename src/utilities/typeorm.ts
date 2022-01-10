@@ -1,5 +1,6 @@
 import config from '@constants/config'
 import { PostsEntity } from '@models/entities/posts.entity'
+import { UserEntity } from '@models/entities/user.entity'
 import { Connection, createConnection } from 'typeorm'
 
 const connection_one = createConnection({
@@ -11,7 +12,7 @@ const connection_one = createConnection({
   password: config.database.one.password,
   database: config.database.one.database,
   synchronize: false,
-  entities: [PostsEntity],
+  entities: [PostsEntity, UserEntity],
 })
 
 class TypeOrmConnection {

@@ -1,6 +1,6 @@
 {
   "name": "express_ts_fullstack_template",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Express Boilerplate Template Example with Typescript",
   "main": "index.js",
   "scripts": {
@@ -52,7 +52,8 @@
       "@typescript-eslint/no-unsafe-member-access": 0,
       "@typescript-eslint/no-unsafe-assignment": 0,
       "@typescript-eslint/no-misused-promises": 0,
-      "@typescript-eslint/no-unsafe-argument": 0
+      "@typescript-eslint/no-unsafe-argument": 0,
+      "@typescript-eslint/no-unsafe-call": 0
     }
   },
   "eslintIgnore": [
@@ -72,6 +73,7 @@
     "helmet": "^5.0.1",
     "http-errors": "^2.0.0",
     "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "multer": "^1.4.4",
     "mysql2": "^2.3.3",
@@ -86,6 +88,7 @@
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.13",
     "@types/http-errors": "^1.8.1",
+    "@types/jsonwebtoken": "^8.5.6",
     "@types/morgan": "^1.9.3",
     "@types/multer": "^1.4.7",
     "@types/node": "^17.0.8",
