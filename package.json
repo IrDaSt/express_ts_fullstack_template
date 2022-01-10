@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node -r module-alias/register ./build",
     "build": "ts-node build.ts",
-    "build:scss": "node-sass --recursive --output-style compressed ./src/public/scss/ -o ./src/public/dist/css",
+    "build:scss": "node-sass --recursive --output-style compressed ./public/scss/ -o ./public/dist/css",
     "dev": "SET DEBUG=express-ts-fullstack-template:* & nodemon",
-    "dev:scss:watch": "npm run build:scss && node-sass --recursive --output-style compressed -w ./src/public/scss/ -o ./src/public/dist/css/",
+    "dev:scss:watch": "npm run build:scss && node-sass --recursive --output-style compressed -w ./public/scss/ -o ./public/dist/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,7 +19,7 @@
     "@services": "build/services",
     "@models": "build/models",
     "@utilities": "build/utilities",
-    "@public": "build/public",
+    "@public": "public",
     "@middlewares": "build/middlewares",
     "@constants": "build/constants",
     "@custom-types": "build/custom-types"
@@ -58,7 +58,7 @@
     }
   },
   "eslintIgnore": [
-    "src/public/",
+    "public/",
     "build.ts"
   ],
   "dependencies": {

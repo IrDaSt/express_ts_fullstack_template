@@ -72,7 +72,7 @@
         "src/utilities/*"
       ],
       "@public/*": [
-        "src/public/*"
+        "public/*"
       ],
       "@middlewares/*": [
         "src/middlewares/*"
@@ -90,6 +90,6 @@
     "spec/**/*.ts"
   ],
   "exclude": [
-    "src/public/"
+    "public/"
   ]
 }

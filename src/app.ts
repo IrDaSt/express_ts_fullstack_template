@@ -63,7 +63,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 // Public folder set up
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static('./public'))
 // Cross-origin resource sharing
 app.use(cors())
 

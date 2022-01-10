@@ -4,7 +4,7 @@
   ],
   "ext": "ts, html",
   "ignore": [
-    "src/public"
+    "public"
   ],
   "exec": "ts-node -r tsconfig-paths/register ./src/index.ts"
 }
