@@ -5,10 +5,7 @@ const build = async () => {
   try {
     // Remove current build
     await remove('./build/')
-    await exec(
-      'node-sass --recursive --output-style compressed -o ./src/public/dist/css ./src/public/scss/',
-      './',
-    )
+    await exec('npm run build:scss', './')
     // Copy front-end files
     await copy('./src/public', './build/public')
     await copy('./src/views', './build/views')

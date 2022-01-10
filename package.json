@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node -r module-alias/register ./build",
     "build": "ts-node build.ts",
-    "build:scss": "node-sass --recursive --output-style compressed -o ./src/public/dist/css ./src/public/scss/", 
+    "build:scss": "node-sass --recursive --output-style compressed ./src/public/scss/ -o ./src/public/dist/css",
     "dev": "SET DEBUG=express-ts-fullstack-template:* & nodemon",
-    "dev:scss:watch": "npm run build:scss && node-sass --recursive --output-style compressed -wo ./src/public/dist/css ./src/public/scss/",
+    "dev:scss:watch": "npm run build:scss && node-sass --recursive --output-style compressed -w ./src/public/scss/ -o ./src/public/dist/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
