@@ -1,5 +1,5 @@
 import config from '@constants/config'
-import { PostsEntity } from '@services/entities/posts.entity'
+import { PostsEntity } from '@models/entities/posts.entity'
 import { Connection, createConnection } from 'typeorm'
 
 const connection_one = createConnection({
