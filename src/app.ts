@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan'
 import path from 'path'
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line no-console
   console.log('Development mode')
 
+  // Logging for development mode
   app.use(morgan('dev'))
 }
 
