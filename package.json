@@ -21,7 +21,8 @@
     "@utilities": "build/utilities",
     "@public": "build/public",
     "@middlewares": "build/middlewares",
-    "@constants": "build/constants"
+    "@constants": "build/constants",
+    "@custom-types": "build/custom-types"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
