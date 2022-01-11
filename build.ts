@@ -4,24 +4,28 @@ import fse from 'fs-extra'
 const build = async () => {
   try {
     // Remove current build
-    console.info(`Removing previous build if exist ...`)
+    console.info(
+      `${new Date().toISOString()} Removing previous build if exist ...`,
+    )
     await remove('./build/')
-    console.info(`Removed previous build if exist\n`)
+    console.info(
+      `${new Date().toISOString()} Removed previous build if exist\n`,
+    )
 
     // Compile scss file
-    console.info(`Compiling scss file ...`)
+    console.info(`${new Date().toISOString()} Compiling scss file ...`)
     await exec('npm run build:scss', './')
-    console.info(`Completed compiling scss file\n`)
+    console.info(`${new Date().toISOString()} Completed compiling scss file\n`)
 
     // Copy front-end files
-    console.info(`Copying front-end files ...`)
+    console.info(`${new Date().toISOString()} Copying front-end files ...`)
     await copy('./src/views', './build/views')
-    console.info(`Copied front-end files\n`)
+    console.info(`${new Date().toISOString()} Copied front-end files\n`)
 
     // Compile back-end files
-    console.info(`Compiling back-end files ...`)
+    console.info(`${new Date().toISOString()} Compiling back-end files ...`)
     await exec('tsc --build tsconfig.prod.json', './')
-    console.info(`Compiled back-end files`)
+    console.info(`${new Date().toISOString()} Compiled back-end files`)
   } catch (error) {
     console.error(error)
   }
