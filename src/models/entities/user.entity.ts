@@ -1,8 +1,9 @@
+import uuidHelper from '@utilities/uuid'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity('user')
 export class UserEntity {
-  @PrimaryColumn()
+  @PrimaryColumn({ default: () => uuidHelper.generateUUIDV4() })
   id_user: string
 
   @Column()

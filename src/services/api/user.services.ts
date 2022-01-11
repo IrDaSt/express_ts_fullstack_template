@@ -1,6 +1,5 @@
 import { UserEntity } from '@models/entities/user.entity'
 import typeormconn from '@utilities/typeorm'
-import uuidHelper from '@utilities/uuid'
 
 const getOneUserById = (id_user: string) => {
   return typeormconn.connection_one
@@ -24,7 +23,6 @@ const create = async ({
   hashed_password: string
 }) => {
   return typeormconn.connection_one?.getRepository(UserEntity).insert({
-    id_user: uuidHelper.generateUUIDV4(),
     name,
     email,
     password: hashed_password,

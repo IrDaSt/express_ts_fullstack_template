@@ -1,6 +1,5 @@
 import { PostsEntity } from '@models/entities/posts.entity'
 import typeormconn from '@utilities/typeorm'
-import uuidHelper from '@utilities/uuid'
 
 const getAllPosts = async () => {
   const result = await typeormconn.connection_one
@@ -27,11 +26,9 @@ const create = async ({
   title_post: string
   description_post: string
 }) => {
-  const id_post = uuidHelper.generateUUIDV4()
   const result_insert = await typeormconn.connection_one
     ?.getRepository(PostsEntity)
     .insert({
-      id_post: id_post,
       title_post,
       description_post,
     })

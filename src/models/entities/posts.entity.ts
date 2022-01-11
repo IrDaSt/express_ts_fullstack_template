@@ -1,8 +1,9 @@
+import uuidHelper from '@utilities/uuid'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity('posts')
 export class PostsEntity {
-  @PrimaryColumn()
+  @PrimaryColumn({ default: () => uuidHelper.generateUUIDV4() })
   id_post: string
 
   @Column()
