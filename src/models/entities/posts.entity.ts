@@ -1,29 +1,19 @@
-import { EntitySchema } from 'typeorm'
+import { Column, Entity, PrimaryColumn } from 'typeorm'
 
-export const PostsEntity = new EntitySchema({
-  // Will use table name `post` as default behaviour.
-  name: 'Posts',
-  // Optional: Provide `tableName` property to override the default behaviour for table name.
-  tableName: 'posts',
-  columns: {
-    id_post: {
-      primary: true,
-      type: 'varchar',
-    },
-    title_post: {
-      type: 'varchar',
-    },
-    description_post: {
-      type: 'text',
-      nullable: true,
-    },
-    created_at: {
-      type: 'datetime',
-      default: new Date(),
-    },
-    updated_at: {
-      type: 'datetime',
-      default: new Date(),
-    },
-  },
-})
+@Entity('posts')
+export class PostsEntity {
+  @PrimaryColumn()
+  id_post: string
+
+  @Column()
+  title_post: string
+
+  @Column({ nullable: true })
+  description_post: string
+
+  @Column({ default: new Date() })
+  created_at: Date
+
+  @Column({ default: new Date() })
+  updated_at: Date
+}
