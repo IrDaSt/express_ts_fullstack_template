@@ -4,7 +4,6 @@ dotenv.config({
 })
 import Debug from 'debug'
 const debug = Debug('express-ts-fullstack-template:server')
-import 'module-alias/register'
 import http from 'http'
 
 import app from './app'
