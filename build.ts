@@ -24,7 +24,24 @@ const build = async () => {
 
     // Compile back-end files
     console.info(`${new Date().toISOString()} Compiling back-end files ...`)
+
+    // Create new temp file for build
+    await write(`./src/index.temp.ts`, '')
+    // Append module alias import
+    await appendText(`./src/index.temp.ts`, `import 'module-alias/register'\n`)
+    // Append index
+    await appendText(`./src/index.temp.ts`, await readFile(`./src/index.ts`))
+
+    // Compile typesript
     await exec('tsc --build tsconfig.prod.json', './')
+
+    // remove index.js from build
+    await remove(`./build/index.js`)
+    // rename temp to index
+    await move(`./build/index.temp.js`, `./build/index.js`)
+    // remove index temp typescript from src
+    await remove(`./src/index.temp.ts`)
+
     console.info(`${new Date().toISOString()} Compiled back-end files`)
   } catch (error) {
     console.error(error)
@@ -43,6 +60,38 @@ function copy(src: string, dest: string): Promise<void> {
   return new Promise((res, rej) => {
     return fse.copy(src, dest, (err) => {
       return !!err ? rej(err) : res()
+    })
+  })
+}
+
+function move(src: string, dest: string): Promise<void> {
+  return new Promise((res, rej) => {
+    return fse.move(src, dest, (err) => {
+      return !!err ? rej(err) : res()
+    })
+  })
+}
+
+function write(target: string, text: string): Promise<void> {
+  return new Promise((res, rej) => {
+    return fse.writeFile(target, text, (err) => {
+      return !!err ? rej(err) : res()
+    })
+  })
+}
+
+function appendText(dest: string, text: string): Promise<void> {
+  return new Promise((res, rej) => {
+    return fse.appendFile(dest, text, (err) => {
+      return !!err ? rej(err) : res()
+    })
+  })
+}
+
+function readFile(dest: string): Promise<string> {
+  return new Promise((res, rej) => {
+    return fse.readFile(dest, 'utf8', (err, data) => {
+      return !!err ? rej(err) : res(data)
     })
   })
 }

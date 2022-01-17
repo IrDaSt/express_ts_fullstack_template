@@ -4,7 +4,7 @@
   "description": "Express Boilerplate Template Example with Typescript",
   "main": "index.js",
   "scripts": {
-    "start": "node module-alias/register ./build",
+    "start": "node ./build",
     "build": "ts-node build.ts",
     "build:scss": "node-sass --recursive --output-style compressed ./public/scss/ -o ./public/dist/css",
     "dev": "SET DEBUG=express-ts-fullstack-template:* & nodemon",
