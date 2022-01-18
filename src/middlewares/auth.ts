@@ -13,7 +13,7 @@ const verifyToken = (
 ) => {
   const authorization = req.headers.authorization
   if (!authorization)
-    responses.Unauthorized(res, {
+    return responses.Unauthorized(res, {
       message: 'Please provide a bearer token authorization',
     })
   else {
@@ -23,8 +23,9 @@ const verifyToken = (
       config.secret_token,
       async (err, value: any | jwt.JwtPayload) => {
         if (err)
-          responses.InternalServerError(res, {
+          return responses.InternalServerError(res, {
             message: 'Failed to authenticate token',
+            err,
           })
 
         try {
