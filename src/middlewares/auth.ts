@@ -23,7 +23,7 @@ const verifyToken = (
       config.secret_token,
       async (err, value: any | jwt.JwtPayload) => {
         if (err)
-          return responses.InternalServerError(res, {
+          return responses.Forbidden(res, {
             message: 'Failed to authenticate token',
             err,
           })
