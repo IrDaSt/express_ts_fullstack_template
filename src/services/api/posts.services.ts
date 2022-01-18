@@ -26,12 +26,12 @@ const create = async ({
   title_post: string
   description_post: string
 }) => {
+  const new_post = new PostsEntity()
+  new_post.title_post = title_post
+  new_post.description_post = description_post
   const result_insert = await typeormconn.connection_one
     ?.getRepository(PostsEntity)
-    .insert({
-      title_post,
-      description_post,
-    })
+    .insert(new_post)
   return result_insert
 }
 

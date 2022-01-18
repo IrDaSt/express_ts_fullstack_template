@@ -5,21 +5,21 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id_user: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   name: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   email: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   password: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   link_foto: string
 
-  @Column({ default: new Date() })
+  @Column({ type: 'datetime', default: new Date() })
   created_at: Date
 
-  @Column({ default: new Date() })
+  @Column({ type: 'datetime', default: new Date() })
   updated_at: Date
 }

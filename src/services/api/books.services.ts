@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+import idGenerator from '@utilities/id-generator'
 import mysqlconn from '@utilities/mysql'
-import uuidHelper from '@utilities/uuid'
 
 const getAllBooks = async () => {
   const result: any = await mysqlconn.query(
@@ -18,12 +18,12 @@ const create = async ({
 }) => {
   const result: any = await mysqlconn.query(
     `
-  insert into books 
-  (id_book, name_book, description_book)
-  values
-  (?,?,?)
-  `,
-    [uuidHelper.generateUUIDV4(), name_book, description_book],
+    insert into books 
+    (id_book, name_book, description_book)
+    values
+    (?,?,?)
+    `,
+    [idGenerator.generateUUIDV4(), name_book, description_book],
   )
   return result
 }
