@@ -6,7 +6,7 @@ import Debug from 'debug'
 const debug = Debug('express-ts-fullstack-template:server')
 import http from 'http'
 
-import app from './app'
+import app from '@app'
 
 /**
  * Get port from environment and store in Express.

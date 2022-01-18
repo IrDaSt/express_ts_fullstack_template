@@ -45,7 +45,7 @@ postsRouterApi.post(
     try {
       const result_insert_post = await postsServices.create({
         title_post,
-        description_post: description_post ?? null,
+        description_post,
       })
       return responses.Success(res, result_insert_post)
     } catch (error) {

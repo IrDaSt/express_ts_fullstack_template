@@ -2,7 +2,7 @@
   "watch": [
     "src"
   ],
-  "ext": "ts, html",
+  "ext": "ts",
   "ignore": [
     "public"
   ],

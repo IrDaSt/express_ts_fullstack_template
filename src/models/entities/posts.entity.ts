@@ -5,15 +5,15 @@ export class PostsEntity {
   @PrimaryGeneratedColumn('uuid')
   id_post: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   title_post: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   description_post: string
 
-  @Column({ default: new Date() })
+  @Column({ type: 'datetime', default: new Date() })
   created_at: Date
 
-  @Column({ default: new Date() })
+  @Column({ type: 'datetime', default: new Date() })
   updated_at: Date
 }

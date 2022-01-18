@@ -25,12 +25,22 @@ const build = async () => {
     // Compile back-end files
     console.info(`${new Date().toISOString()} Compiling back-end files ...`)
 
+    // remove index temp typescript from src
+    await remove(`./src/temp-build/`)
+    // Create temp directory for build
+    await makeDir(`./src/temp-build`)
     // Create new temp file for build
-    await write(`./src/index.temp.ts`, '')
+    await write(`./src/temp-build/index.temp.ts`, '')
     // Append module alias import
-    await appendText(`./src/index.temp.ts`, `import 'module-alias/register'\n`)
+    await appendText(
+      `./src/temp-build/index.temp.ts`,
+      `import 'module-alias/register'\n`,
+    )
     // Append index
-    await appendText(`./src/index.temp.ts`, await readFile(`./src/index.ts`))
+    await appendText(
+      `./src/temp-build/index.temp.ts`,
+      await readFile(`./src/index.ts`),
+    )
 
     // Compile typesript
     await exec('tsc --build tsconfig.prod.json', './')
@@ -38,9 +48,11 @@ const build = async () => {
     // remove index.js from build
     await remove(`./build/index.js`)
     // rename temp to index
-    await move(`./build/index.temp.js`, `./build/index.js`)
-    // remove index temp typescript from src
-    await remove(`./src/index.temp.ts`)
+    await move(`./build/temp-build/index.temp.js`, `./build/index.js`)
+    // remove temp folder from src
+    await remove(`./src/temp-build/`)
+    // remove temp folder from build
+    await remove(`./build/temp-build/`)
 
     console.info(`${new Date().toISOString()} Compiled back-end files`)
   } catch (error) {
@@ -67,6 +79,14 @@ function copy(src: string, dest: string): Promise<void> {
 function move(src: string, dest: string): Promise<void> {
   return new Promise((res, rej) => {
     return fse.move(src, dest, (err) => {
+      return !!err ? rej(err) : res()
+    })
+  })
+}
+
+function makeDir(target: string): Promise<void> {
+  return new Promise((res, rej) => {
+    return fse.mkdir(target, (err) => {
       return !!err ? rej(err) : res()
     })
   })
