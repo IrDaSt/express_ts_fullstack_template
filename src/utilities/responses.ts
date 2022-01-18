@@ -56,6 +56,15 @@ const Unauthorized = (res: Response, error: any) =>
     }),
   )
 
+const Forbidden = (res: Response, error: any) =>
+  res.status(StatusCodes.FORBIDDEN).json(
+    responseCustom({
+      status_code: StatusCodes.FORBIDDEN,
+      status_message: 'error',
+      error: error,
+    }),
+  )
+
 const NotFound = (res: Response, error: any) =>
   res.status(StatusCodes.NOT_FOUND).json(
     responseCustom({
@@ -89,8 +98,9 @@ const InternalServerErrorCatch = (res: Response, error: any) =>
 const responses = {
   Success,
   Created,
-  Unauthorized,
   BadRequest,
+  Unauthorized,
+  Forbidden,
   NotFound,
   responseCustom,
   InternalServerError,
