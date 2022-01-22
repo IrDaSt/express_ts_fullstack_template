@@ -37,7 +37,7 @@ For using scss as your main styling, for the best practices the system will only
 
     npm run dev:scss:watch
 
-After that, the scss files will be compiled every detected change to **public/dist/css/** folder.
+After that, the scss files will be compiled every detected change to **public/dist/scss-css/** folder.
 
 # Production Build
 
