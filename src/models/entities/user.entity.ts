@@ -15,7 +15,7 @@ export class UserEntity {
   password: string
 
   @Column({ type: 'varchar', nullable: true })
-  link_foto: string
+  link_foto?: string
 
   @Column({ type: 'datetime', default: new Date() })
   created_at: Date
