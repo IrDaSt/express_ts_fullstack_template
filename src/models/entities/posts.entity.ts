@@ -9,7 +9,7 @@ export class PostsEntity {
   title_post: string
 
   @Column({ type: 'text', nullable: true })
-  description_post: string
+  description_post?: string
 
   @Column({ type: 'datetime', default: new Date() })
   created_at: Date
