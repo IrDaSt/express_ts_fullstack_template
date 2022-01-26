@@ -1,5 +1,5 @@
 import { PostsEntity } from '@models/entities/posts.entity'
-import typeormconn from '@utilities/typeorm'
+import typeormconn from '@utilities/typeorm.utils'
 
 const getAllPosts = async () => {
   const result = await typeormconn.connection_one

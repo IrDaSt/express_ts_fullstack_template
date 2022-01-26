@@ -13,6 +13,10 @@ It has several features:
 8. View engine powered with [EJS (Embedded JavaScript templating)](https://ejs.co)
 9. And much more..
 
+# Before Start Using
+
+Before you start using the boilerplate, you need to hava accessable MariaDB database. This is because **TypeORM** implementation needs immediate database connection unlike **mysql/promise**. After that, make a new environment variables file by creating .env file in you root project directory. The examples for .env file can be found at **.env.example**. Make sure you have properly configure the database connection.
+
 # Start Using
 
 Make sure to have the latest Node.js version. You can start use this template by clicking "use this template" button, or fork this repository into your own, or download zipped repository.

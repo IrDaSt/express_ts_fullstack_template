@@ -11,11 +11,11 @@ const ecryptSHA256 = (text: string) =>
 const ecryptMD5 = (text: string) =>
   crypto.createHash('md5').update(text).digest('hex')
 
-const cryptoHelper = {
+const cryptoUtils = {
   generateSalt,
   encryptWithSalt,
   ecryptSHA256,
   ecryptMD5,
 }
 
-export default cryptoHelper
+export default cryptoUtils

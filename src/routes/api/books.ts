@@ -1,7 +1,7 @@
 import upload from '@middlewares/multer'
 import { BooksModel } from '@models/books.model'
 import booksServices from '@services/api/books.services'
-import responses from '@utilities/responses'
+import responses from '@utilities/responses.utils'
 import { NextFunction, Request, Response, Router } from 'express'
 import { body, validationResult } from 'express-validator'
 import { ResultSetHeader } from 'mysql2'

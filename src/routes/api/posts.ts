@@ -1,5 +1,5 @@
 import { body, validationResult } from 'express-validator'
-import responses from '@utilities/responses'
+import responses from '@utilities/responses.utils'
 import { NextFunction, Request, Response, Router } from 'express'
 import upload from '@middlewares/multer'
 import postsServices from '@services/api/posts.services'
