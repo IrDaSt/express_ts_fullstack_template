@@ -4,9 +4,8 @@ const generateUUIDV4 = (): string => {
   const uid: string = uuid.v4()
   return uid
 }
-
-const uuidHelper = {
+const idGeneratorUtils = {
   generateUUIDV4,
 }
 
-export default uuidHelper
+export default idGeneratorUtils

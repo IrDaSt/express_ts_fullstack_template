@@ -1,5 +1,5 @@
 import { UserEntity } from '@models/entities/user.entity'
-import typeormconn from '@utilities/typeorm'
+import typeormconn from '@utilities/typeorm.utils'
 
 const getOneUserById = (id_user: string) => {
   return typeormconn.connection_one

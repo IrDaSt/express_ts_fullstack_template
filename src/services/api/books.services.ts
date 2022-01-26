@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import idGenerator from '@utilities/id-generator'
-import mysqlconn from '@utilities/mysql'
+import idGeneratorUtils from '@utilities/id-generator.utils'
+import mysqlconn from '@utilities/mysql.utils'
 
 const getAllBooks = async () => {
   const result: any = await mysqlconn.query(
@@ -23,7 +23,7 @@ const create = async ({
     values
     (?,?,?)
     `,
-    [idGenerator.generateUUIDV4(), name_book, description_book],
+    [idGeneratorUtils.generateUUIDV4(), name_book, description_book],
   )
   return result
 }

@@ -1,4 +1,4 @@
-import responses from '@utilities/responses'
+import responses from '@utilities/responses.utils'
 import { Request, Response, Router } from 'express'
 import authRouterApi from './auth'
 import booksRouterApi from './books'

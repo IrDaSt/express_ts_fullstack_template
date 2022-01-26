@@ -1,7 +1,7 @@
 import config from '@constants/config'
 import { UserModel } from '@models/user.model'
 import userServices from '@services/api/user.services'
-import responses from '@utilities/responses'
+import responses from '@utilities/responses.utils'
 import { NextFunction, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { CustomExpressRequest } from '@custom-types/custom-express-request.type'

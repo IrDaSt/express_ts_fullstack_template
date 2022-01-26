@@ -1,9 +1,9 @@
 import authMiddleware from '@middlewares/auth'
 import upload from '@middlewares/multer'
 import userServices from '@services/api/user.services'
-import cryptoHelper from '@utilities/crypto'
-import jwtHelper from '@utilities/jsonwebtoken'
-import responses from '@utilities/responses'
+import cryptoUtils from '@utilities/crypto.utils'
+import jwtUtils from '@utilities/jsonwebtoken.utils'
+import responses from '@utilities/responses.utils'
 import { NextFunction, Request, Response, Router } from 'express'
 import { body, validationResult } from 'express-validator'
 import { CustomExpressRequest } from '@custom-types/custom-express-request.type'
@@ -47,8 +47,8 @@ authRouterApi.post(
 
       const [encrypted_password, salt] = result_check_email.password.split(':')
 
-      if (encrypted_password === cryptoHelper.encryptWithSalt(password, salt)) {
-        const token = jwtHelper.generateToken({
+      if (encrypted_password === cryptoUtils.encryptWithSalt(password, salt)) {
+        const token = jwtUtils.generateToken({
           id_user: result_check_email.id_user,
         })
         responses.Success(res, {
@@ -91,13 +91,13 @@ authRouterApi.post(
           message: 'Email already used',
         })
       }
-      const salt = cryptoHelper.generateSalt()
+      const salt = cryptoUtils.generateSalt()
       const result_register:
         | InsertResult
         | undefined = await userServices.create({
         name,
         email,
-        hashed_password: `${cryptoHelper.encryptWithSalt(
+        hashed_password: `${cryptoUtils.encryptWithSalt(
           password,
           salt,
         )}:${salt}`,
@@ -107,7 +107,7 @@ authRouterApi.post(
           message: 'Database error',
         })
       }
-      const token = jwtHelper.generateToken({
+      const token = jwtUtils.generateToken({
         id_user: result_register.identifiers[0].id_user,
       })
       responses.Success(res, {
