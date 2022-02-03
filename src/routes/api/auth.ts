@@ -8,14 +8,33 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { body, validationResult } from 'express-validator'
 import { CustomExpressRequest } from '@custom-types/custom-express-request.type'
 import { InsertResult } from 'typeorm'
+import { UserEntity } from '@models/entities/User.entity'
+import { JwtData } from '@models/JwtData.model'
 
 const authRouterApi = Router()
 
 authRouterApi.get(
   '/info',
   authMiddleware.verifyToken,
-  (req: CustomExpressRequest, res: Response) => {
-    responses.Success(res, req.currentUser)
+  async (req: CustomExpressRequest, res: Response, next: NextFunction) => {
+    const jwtData = req.currentUser
+    try {
+      if (jwtData) {
+        const result_user_data: any = await userServices.getOneUserById(
+          jwtData.id_user,
+        )
+        if (!result_user_data) {
+          return responses.InternalServerError(res, {
+            message: 'User not found',
+          })
+        }
+        const user_data: UserEntity = result_user_data
+        responses.Success(res, user_data)
+      }
+    } catch (error) {
+      responses.InternalServerErrorCatch(res, error)
+      next(error)
+    }
   },
 )
 
