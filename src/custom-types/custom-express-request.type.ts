@@ -1,4 +1,4 @@
-import { UserModel } from '@models/user.model'
+import { UserModel } from '@models/User.model'
 import { Request } from 'express'
 
 export interface CustomExpressRequest extends Request {

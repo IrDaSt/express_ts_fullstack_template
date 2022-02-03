@@ -1,4 +1,4 @@
-import { UserEntity } from '@models/entities/user.entity'
+import { UserEntity } from '@models/entities/User.entity'
 import typeormconn from '@utilities/typeorm.utils'
 
 const getOneUserById = (id_user: string) => {
