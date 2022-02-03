@@ -1,4 +1,4 @@
-import { PostsEntity } from '@models/entities/posts.entity'
+import { PostsEntity } from '@models/entities/Posts.entity'
 import typeormconn from '@utilities/typeorm.utils'
 
 const getAllPosts = async () => {

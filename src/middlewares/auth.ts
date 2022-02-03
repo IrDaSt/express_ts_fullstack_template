@@ -1,5 +1,5 @@
 import config from '@constants/config'
-import { UserModel } from '@models/user.model'
+import { UserModel } from '@models/User.model'
 import userServices from '@services/api/user.services'
 import responses from '@utilities/responses.utils'
 import { NextFunction, Response } from 'express'

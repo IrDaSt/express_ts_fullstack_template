@@ -1,6 +1,6 @@
 import config from '@constants/config'
-import { PostsEntity } from '@models/entities/posts.entity'
-import { UserEntity } from '@models/entities/user.entity'
+import { PostsEntity } from '@models/entities/Posts.entity'
+import { UserEntity } from '@models/entities/User.entity'
 import { Connection, createConnection } from 'typeorm'
 
 const connection_one = createConnection({
