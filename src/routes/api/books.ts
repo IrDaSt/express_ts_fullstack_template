@@ -1,5 +1,5 @@
 import upload from '@middlewares/multer'
-import { BooksModel } from '@models/books.model'
+import { BooksModel } from '@models/Books.model'
 import booksServices from '@services/api/books.services'
 import responses from '@utilities/responses.utils'
 import { NextFunction, Request, Response, Router } from 'express'
