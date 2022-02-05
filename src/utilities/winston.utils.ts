@@ -23,9 +23,9 @@ const dailyRotateTransportConsole = new winston.transports.DailyRotateFile({
   format: winston.format.json(),
 })
 
-dailyRotateTransportHttp.on('rotate', function (oldFilename, newFilename) {
-  // do something fun
-})
+// dailyRotateTransportHttp.on('rotate', function (oldFilename, newFilename) {
+//   // do something fun
+// })
 
 export const loggerHttp = winston.createLogger({
   exitOnError: false,
