@@ -1,41 +1,37 @@
 import { body, validationResult } from 'express-validator'
 import responses from '@utilities/responses.utils'
-import { NextFunction, Request, Response, Router } from 'express'
+import { Request, Response, Router } from 'express'
 import upload from '@middlewares/multer'
 import postsServices from '@services/api/posts.services'
 
 const postsRouterApi = Router()
 
-postsRouterApi.get(
-  '/',
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { id_post } = req.query
-    try {
-      if (id_post) {
-        const post = await postsServices.getOnePostById(id_post.toString())
-        if (post) {
-          return responses.Success(res, post)
-        } else {
-          return responses.NotFound(res, {
-            message: 'post not found',
-          })
-        }
+postsRouterApi.get('/', async (req: Request, res: Response) => {
+  const { id_post } = req.query
+  try {
+    if (id_post) {
+      const post = await postsServices.getOnePostById(id_post.toString())
+      if (post) {
+        return responses.Success(res, post)
       } else {
-        const posts = await postsServices.getAllPosts()
-        return responses.Success(res, posts)
+        return responses.NotFound(res, {
+          message: 'post not found',
+        })
       }
-    } catch (error) {
-      responses.InternalServerErrorCatch(res, error)
-      next(error)
+    } else {
+      const posts = await postsServices.getAllPosts()
+      return responses.Success(res, posts)
     }
-  },
-)
+  } catch (error) {
+    return responses.InternalServerErrorCatch(res, error)
+  }
+})
 
 postsRouterApi.post(
   '/create',
   upload.fields([]),
   body('title_post').notEmpty().withMessage('title_post required'),
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return responses.BadRequest(res, errors.array())
@@ -49,8 +45,7 @@ postsRouterApi.post(
       })
       return responses.Success(res, result_insert_post)
     } catch (error) {
-      responses.InternalServerErrorCatch(res, error)
-      next(error)
+      return responses.InternalServerErrorCatch(res, error)
     }
   },
 )

@@ -4,19 +4,18 @@ import userServices from '@services/api/user.services'
 import cryptoUtils from '@utilities/crypto.utils'
 import jwtUtils from '@utilities/jsonwebtoken.utils'
 import responses from '@utilities/responses.utils'
-import { NextFunction, Request, Response, Router } from 'express'
+import { Request, Response, Router } from 'express'
 import { body, validationResult } from 'express-validator'
 import { CustomExpressRequest } from '@custom-types/custom-express-request.type'
 import { InsertResult } from 'typeorm'
 import { UserEntity } from '@models/entities/User.entity'
-import { JwtData } from '@models/JwtData.model'
 
 const authRouterApi = Router()
 
 authRouterApi.get(
   '/info',
   authMiddleware.verifyToken,
-  async (req: CustomExpressRequest, res: Response, next: NextFunction) => {
+  async (req: CustomExpressRequest, res: Response) => {
     const jwtData = req.currentUser
     try {
       if (jwtData) {
@@ -32,8 +31,7 @@ authRouterApi.get(
         responses.Success(res, user_data)
       }
     } catch (error) {
-      responses.InternalServerErrorCatch(res, error)
-      next(error)
+      return responses.InternalServerErrorCatch(res, error)
     }
   },
 )
@@ -47,7 +45,7 @@ authRouterApi.post(
     .isEmail()
     .withMessage('email field must be an email'),
   body('password').notEmpty().withMessage('password field required'),
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return responses.BadRequest(res, errors.array())
@@ -80,8 +78,7 @@ authRouterApi.post(
         })
       }
     } catch (error) {
-      responses.InternalServerErrorCatch(res, error)
-      next(error)
+      return responses.InternalServerErrorCatch(res, error)
     }
   },
 )
@@ -96,7 +93,7 @@ authRouterApi.post(
     .withMessage('email field must be and email'),
   body('password').notEmpty().withMessage('password field required'),
   body('name').notEmpty().withMessage('name field required'),
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return responses.BadRequest(res, errors.array())
@@ -134,8 +131,7 @@ authRouterApi.post(
         token,
       })
     } catch (error) {
-      responses.InternalServerErrorCatch(res, error)
-      next(error)
+      return responses.InternalServerErrorCatch(res, error)
     }
   },
 )

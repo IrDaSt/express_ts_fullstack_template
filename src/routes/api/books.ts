@@ -2,30 +2,26 @@ import upload from '@middlewares/multer'
 import { BooksModel } from '@models/Books.model'
 import booksServices from '@services/api/books.services'
 import responses from '@utilities/responses.utils'
-import { NextFunction, Request, Response, Router } from 'express'
+import { Request, Response, Router } from 'express'
 import { body, validationResult } from 'express-validator'
 import { ResultSetHeader } from 'mysql2'
 
 const booksRouterApi = Router()
 
-booksRouterApi.get(
-  '/',
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const books: Array<BooksModel> = await booksServices.getAllBooks()
-      responses.Success(res, books)
-    } catch (error) {
-      responses.InternalServerErrorCatch(res, error)
-      next(error)
-    }
-  },
-)
+booksRouterApi.get('/', async (req: Request, res: Response) => {
+  try {
+    const books: Array<BooksModel> = await booksServices.getAllBooks()
+    responses.Success(res, books)
+  } catch (error) {
+    return responses.InternalServerErrorCatch(res, error)
+  }
+})
 
 booksRouterApi.post(
   '/create',
   upload.fields([]),
   body('name_book').notEmpty().withMessage('name_book body field required'),
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return responses.BadRequest(res, errors.array())
@@ -39,8 +35,7 @@ booksRouterApi.post(
       })
       responses.Created(res, result_insert_book)
     } catch (error) {
-      responses.InternalServerErrorCatch(res, error)
-      next(error)
+      return responses.InternalServerErrorCatch(res, error)
     }
   },
 )
