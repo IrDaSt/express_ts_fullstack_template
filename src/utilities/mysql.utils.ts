@@ -1,16 +1,39 @@
 import config from '@constants/config'
 import mysql from 'mysql2/promise'
 
-const query = async (sql: string, values?: any) => {
-  const conn = await mysql.createConnection({
-    ...config.database.one,
-  })
-  const [result] = await conn.query(sql, values)
-  return result
+class MysqlConnection {
+  conn?: mysql.Connection
+
+  constructor() {
+    this.initConnection()
+  }
+
+  async initConnection() {
+    const conn = await mysql.createConnection({
+      ...config.database.one,
+    })
+    this.conn = conn
+  }
+
+  public async query(sql: string, values?: any) {
+    try {
+      await this.conn?.connect()
+    } catch (error) {
+      const err: any = error
+      if (err.code === 'ECONNRESET') {
+        await this.initConnection()
+      }
+    }
+
+    if (this.conn) {
+      const [result] = await this.conn.query(sql, values)
+      return result
+    } else {
+      return this.conn
+    }
+  }
 }
 
-const mysqlconn = {
-  query,
-}
+const mysqlconn = new MysqlConnection()
 
 export default mysqlconn
