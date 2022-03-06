@@ -27,7 +27,7 @@ class TypeOrmConnection {
         // eslint-disable-next-line no-console
         console.log('database connection_one error')
         // eslint-disable-next-line no-console
-        console.log(err)
+        console.error({ ...err })
         return
       })
   }
