@@ -61,6 +61,7 @@
     "build.ts"
   ],
   "dependencies": {
+    "async": "^3.2.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "debug": "^4.3.3",
@@ -84,6 +85,7 @@
     "winston-daily-rotate-file": "^4.6.1"
   },
   "devDependencies": {
+    "@types/async": "^3.2.12",
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.12",
     "@types/debug": "^4.1.7",
