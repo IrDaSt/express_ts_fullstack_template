@@ -17,17 +17,24 @@ const connection_one: ConnectionOptions = {
 }
 
 class TypeOrmConnection {
-  connection_one: Connection
+  connection_one?: Connection
 
   constructor() {
-    this.reconnectOne()
+    this.init()
+  }
+
+  init = async () => {
+    await this.connectOne()
+    if (!this.connection_one?.isConnected) this.reconnectOne()
   }
 
   connectOne = async () => {
     if (this.connection_one?.isConnected) return
+    loggerConsole.info(`connecting to connection_one...`)
     await createConnection(connection_one)
       .then((conn: Connection) => {
         this.connection_one = conn
+        loggerConsole.info(`connected to connection_one`)
       })
       .catch((err: any) => {
         loggerConsole.error('database connection_one error')
