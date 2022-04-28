@@ -1,10 +1,10 @@
 import config from '@constants/config'
 import { PostsEntity } from '@models/entities/Posts.entity'
 import { UserEntity } from '@models/entities/User.entity'
-import { Connection, createConnection } from 'typeorm'
+import { Connection, ConnectionOptions, createConnection } from 'typeorm'
 import { loggerConsole } from './winston.utils'
 
-const connection_one = createConnection({
+const connection_one: ConnectionOptions = {
   type: 'mariadb',
   name: 'connection_one',
   host: config.database.one.host,
@@ -14,7 +14,7 @@ const connection_one = createConnection({
   database: config.database.one.database,
   synchronize: false,
   entities: [PostsEntity, UserEntity],
-})
+}
 
 class TypeOrmConnection {
   connection_one: Connection
@@ -25,7 +25,7 @@ class TypeOrmConnection {
 
   connectOne = async () => {
     if (this.connection_one?.isConnected) return
-    await connection_one
+    await createConnection(connection_one)
       .then((conn: Connection) => {
         this.connection_one = conn
       })
