@@ -1,10 +1,10 @@
 import winston from 'winston'
 import 'winston-daily-rotate-file'
+import path from 'path'
 
 // Create a rotating write stream for Http Logging system
 const dailyRotateTransportHttp = new winston.transports.DailyRotateFile({
-  filename: 'application-%DATE%.log',
-  dirname: `./logs/http/`,
+  filename: path.join(__dirname, 'logs', 'http', 'application-%DATE%.log'),
   datePattern: 'YYYY-MM-DD-HH',
   zippedArchive: true,
   maxSize: '10m',
@@ -14,8 +14,7 @@ const dailyRotateTransportHttp = new winston.transports.DailyRotateFile({
 
 // Create a rotating write stream for Console Logging system
 const dailyRotateTransportConsole = new winston.transports.DailyRotateFile({
-  filename: 'application-%DATE%.log',
-  dirname: `./logs/console/`,
+  filename: path.join(__dirname, 'logs', 'console', 'application-%DATE%.log'),
   datePattern: 'YYYY-MM-DD-HH',
   zippedArchive: true,
   maxSize: '10m',
