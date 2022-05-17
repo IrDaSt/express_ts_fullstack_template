@@ -5,7 +5,7 @@ It has several features:
 
 1. Full Typescript Coded Server
 2. Live Reload with [nodemon](https://www.npmjs.com/package/nodemon)
-3. Fast Typescript compile with [ts-node](https://www.npmjs.com/package/ts-node)
+3. Typescript compile with [ts-node](https://www.npmjs.com/package/ts-node)
 4. File Upload examples with [multer](https://www.npmjs.com/package/multer)
 5. Automatic Swagger UI API Docs with Open API 3.0 with [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
 6. Mysql2 with promise examples with [mysql2](https://www.npmjs.com/package/mysql2)
