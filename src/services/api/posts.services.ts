@@ -15,7 +15,11 @@ const getAllPosts = async () => {
 const getOnePostById = async (id_post: string) => {
   const result = await typeormconn.connection_one
     ?.getRepository(PostsEntity)
-    .findOne({ id_post })
+    .findOne({
+      where: {
+        id_post
+      }
+    })
   return result
 }
 

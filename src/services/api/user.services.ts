@@ -4,13 +4,21 @@ import typeormconn from '@utilities/typeorm.utils'
 const getOneUserById = (id_user: string) => {
   return typeormconn.connection_one
     ?.getRepository(UserEntity)
-    .findOne({ id_user })
+    .findOne({
+      where: {
+        id_user
+      }
+    })
 }
 
 const getOneUserByEmail = async (email: string) => {
   return typeormconn.connection_one
     ?.getRepository(UserEntity)
-    .findOne({ email })
+    .findOne({
+      where: {
+        email
+      }
+    })
 }
 
 const create = async ({
