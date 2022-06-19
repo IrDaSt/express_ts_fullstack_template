@@ -1,5 +1,5 @@
-import config from '@constants/config'
-import mysql from 'mysql2/promise'
+import config from "@constants/config"
+import mysql from "mysql2/promise"
 
 class MysqlConnection {
   conn?: mysql.Connection
@@ -20,7 +20,7 @@ class MysqlConnection {
       await this.conn?.connect()
     } catch (error) {
       const err: any = error
-      if (err.code === 'ECONNRESET') {
+      if (err.code === "ECONNRESET") {
         await this.initConnection()
       }
     }
