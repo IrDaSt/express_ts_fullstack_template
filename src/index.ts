@@ -1,19 +1,18 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv"
 dotenv.config({
-  path: '.env',
+  path: ".env",
 })
-import Debug from 'debug'
-const debug = Debug('express-ts-fullstack-template:server')
-import http from 'http'
+import Debug from "debug"
+const debug = Debug("express-ts-fullstack-template:server")
+import http from "http"
 
-import app from '@app'
+import app from "@app"
 
 /**
  * Get port from environment and store in Express.
  */
-
-const port = Number(process.env.PORT || '4000')
-app.set('port', port)
+const port = Number(process.env.PORT || "4000")
+app.set("port", port)
 
 /**
  * Create HTTP/HTTPS server.
@@ -33,30 +32,30 @@ const server = http.createServer(app)
  */
 
 server.listen(port)
-server.on('error', onError)
-server.on('listening', onListening)
+server.on("error", onError)
+server.on("listening", onListening)
 
 /**
  * Event listener for HTTP server "error" event.
  */
 
 function onError(error: any) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error
   }
 
-  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
+    case "EACCES":
       // eslint-disable-next-line no-console
-      console.error(bind + ' requires elevated privileges')
+      console.error(bind + " requires elevated privileges")
       process.exit(1)
       break
-    case 'EADDRINUSE':
+    case "EADDRINUSE":
       // eslint-disable-next-line no-console
-      console.error(bind + ' is already in use')
+      console.error(bind + " is already in use")
       process.exit(1)
       break
     default:
@@ -71,6 +70,8 @@ function onError(error: any) {
 function onListening() {
   const addr = server.address()
   // var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  if (typeof addr !== 'string')
-    debug('Listening on http://localhost:' + addr?.port)
+  if (typeof addr !== "string")
+    debug("Listening on http://localhost:" + addr?.port)
 }
+
+export default server

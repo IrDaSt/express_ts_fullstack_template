@@ -1,24 +1,29 @@
+import dotenv from "dotenv"
+dotenv.config({
+  path: ".env",
+})
+
 const config = {
-  port: Number(process.env.PORT || '4000'),
+  port: Number(process.env.PORT || "4000"),
   database: {
     one: {
-      host: process.env.DB_HOST || 'localhost',
-      user: process.env.DB_USER || 'admin',
+      host: process.env.DB_HOST || "localhost",
+      user: process.env.DB_USER || "admin",
       port: Number(process.env.DB_PORT || 3306),
-      password: process.env.DB_PASSWORD || 'admin',
-      database: process.env.DB_NAME || 'express_rest_api',
+      password: process.env.DB_PASSWORD || "admin",
+      database: process.env.DB_NAME || "express_rest_api",
     },
   },
-  secret_token: process.env.JWT_SECRET || 'secret_token_express_fullstack',
+  secret_token: process.env.JWT_SECRET || "secret_token_express_fullstack",
   session_secret_key:
-    process.env.SESSION_SECRET || 'secret_session_key_express_fullstack',
+    process.env.SESSION_SECRET || "secret_session_key_express_fullstack",
   session_setting: {
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, // a day in milliseconds
     // store: new session.MemoryStore(),
     saveUninitialized: true,
     resave: true,
     secret:
-      process.env.SESSION_SECRET || 'secret_session_key_express_fullstack',
+      process.env.SESSION_SECRET || "secret_session_key_express_fullstack",
   },
   mail: {
     MAIL_MAILER: process.env.MAIL_MAILER,
@@ -34,8 +39,8 @@ const config = {
     uri: process.env.MONGO_URI,
   },
   cookie_config: {
-    domain: process.env.COOKIE_DOMAIN || 'localhost',
-    path: '/',
+    domain: process.env.COOKIE_DOMAIN || "localhost",
+    path: "/",
   },
 }
 

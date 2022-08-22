@@ -85,7 +85,10 @@
       ],
       "@custom-types/*": [
         "src/custom-types/*"
-      ]
+      ],
+      "@test/*": [
+        "src/test/*"
+      ],
     },
   },
   "include": [

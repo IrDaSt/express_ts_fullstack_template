@@ -1,12 +1,12 @@
-import { PostsEntity } from '@models/entities/Posts.entity'
-import typeormconn from '@utilities/typeorm.utils'
+import { PostsEntity } from "@models/entities/Posts.entity"
+import typeormconn from "@utilities/typeorm.utils"
 
 const getAllPosts = async () => {
   const result = await typeormconn.connection_one
     ?.getRepository(PostsEntity)
     .find({
       order: {
-        created_at: 'DESC',
+        created_at: "DESC",
       },
     })
   return result
@@ -17,8 +17,8 @@ const getOnePostById = async (id_post: string) => {
     ?.getRepository(PostsEntity)
     .findOne({
       where: {
-        id_post
-      }
+        id_post,
+      },
     })
   return result
 }
@@ -39,10 +39,17 @@ const create = async ({
   return result_insert
 }
 
+const remove = async (id_post: string) => {
+  return typeormconn.connection_one?.getRepository(PostsEntity).delete({
+    id_post,
+  })
+}
+
 const postsServices = {
   getAllPosts,
   getOnePostById,
   create,
+  remove,
 }
 
 export default postsServices

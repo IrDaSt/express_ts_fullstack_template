@@ -1,12 +1,12 @@
-import { body, validationResult } from 'express-validator'
-import responses from '@utilities/responses.utils'
-import { Request, Response, Router } from 'express'
-import upload from '@middlewares/multer'
-import postsServices from '@services/api/posts.services'
+import { body, query, validationResult } from "express-validator"
+import responses from "@utilities/responses.utils"
+import { Request, Response, Router } from "express"
+import upload from "@middlewares/multer"
+import postsServices from "@services/api/posts.services"
 
 const postsRouterApi = Router()
 
-postsRouterApi.get('/', async (req: Request, res: Response) => {
+postsRouterApi.get("/", async (req: Request, res: Response) => {
   const { id_post } = req.query
   try {
     if (id_post) {
@@ -15,7 +15,7 @@ postsRouterApi.get('/', async (req: Request, res: Response) => {
         return responses.Success(res, post)
       } else {
         return responses.NotFound(res, {
-          message: 'post not found',
+          message: "post not found",
         })
       }
     } else {
@@ -28,9 +28,9 @@ postsRouterApi.get('/', async (req: Request, res: Response) => {
 })
 
 postsRouterApi.post(
-  '/create',
+  "/create",
   upload.fields([]),
-  body('title_post').notEmpty().withMessage('title_post required'),
+  body("title_post").notEmpty().withMessage("title_post required"),
   async (req: Request, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -43,7 +43,31 @@ postsRouterApi.post(
         title_post,
         description_post,
       })
-      return responses.Success(res, result_insert_post)
+      return responses.Created(res, result_insert_post)
+    } catch (error) {
+      return responses.InternalServerErrorCatch(res, error)
+    }
+  },
+)
+
+postsRouterApi.delete(
+  "/delete",
+  upload.fields([]),
+  query("id_post").notEmpty().withMessage("id_post query required"),
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return responses.BadRequest(res, errors.array())
+    }
+
+    const { id_post } = req.query
+    try {
+      if (id_post) {
+        const result_delete_post = await postsServices.remove(
+          id_post.toString(),
+        )
+        return responses.Success(res, result_delete_post)
+      }
     } catch (error) {
       return responses.InternalServerErrorCatch(res, error)
     }
