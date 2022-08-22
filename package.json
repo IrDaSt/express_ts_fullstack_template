@@ -1,20 +1,22 @@
 {
   "name": "express_ts_fullstack_template",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Express Boilerplate Template Example with Typescript",
   "scripts": {
     "start": "node ./build/index.js",
     "build": "ts-node build.ts",
     "build:scss": "sass --style=compressed --error-css --stop-on-error --color --trace ./public/scss/:./public/dist/scss-css",
+    "build:docker": "docker build . -t danielwj00/express_ts_fullstack_template:1.7.0",
     "dev": "SET DEBUG=express-ts-fullstack-template:* & nodemon",
     "dev:scss:watch": "npm run build:scss && sass --style=compressed --error-css --update --watch --poll --stop-on-error --color --trace ./public/scss/:./public/dist/scss-css",
     "test": "npm run build && mocha --exit",
     "deploy:helm:install": "helm install express-ts-fullstack-template .kube_helm/",
     "deploy:helm:upgrade": "helm upgrade express-ts-fullstack-template .kube_helm/",
-    "deploy:helm:uninstall": "helm uninstall express-ts-fullstack-template"
+    "deploy:helm:uninstall": "helm uninstall express-ts-fullstack-template",
+    "deploy:helm:run": "kubectl port-forward services/express-ts-fullstack-template 5000:5000"
   },
   "keywords": [],
-  "author": "",
+  "author": "IrDaSt",
   "license": "ISC",
   "_moduleAliases": {
     "@app": "build/app.js",
