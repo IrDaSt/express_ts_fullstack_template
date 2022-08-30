@@ -3,7 +3,6 @@ import { TestFactory } from "@test/factory"
 import { describe } from "mocha"
 import postsServices from "@services/api/posts.services"
 import { assert, expect } from "chai"
-import { loggerConsole } from "@utilities/winston.utils"
 import jsonUtils from "@utilities/json.utils"
 import { StatusCodes } from "http-status-codes"
 
