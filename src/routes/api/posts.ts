@@ -3,6 +3,8 @@ import responses from "@utilities/responses.utils"
 import { Request, Response, Router } from "express"
 import upload from "@middlewares/multer"
 import postsServices from "@services/api/posts.services"
+import authMiddleware from "@middlewares/auth"
+import { CustomExpressRequest } from "@custom-types/custom-express-request.type"
 
 const postsRouterApi = Router()
 
@@ -30,18 +32,22 @@ postsRouterApi.get("/", async (req: Request, res: Response) => {
 postsRouterApi.post(
   "/create",
   upload.fields([]),
+  authMiddleware.verifyToken,
   body("title_post").notEmpty().withMessage("title_post required"),
-  async (req: Request, res: Response) => {
+  async (req: CustomExpressRequest, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return responses.BadRequest(res, errors.array())
     }
 
     const { title_post, description_post } = req.body
+    const jwtData = req.currentUser
     try {
+      if (!jwtData) return
       const result_insert_post = await postsServices.create({
         title_post,
         description_post,
+        id_user_post: jwtData.id_user,
       })
       return responses.Created(res, result_insert_post)
     } catch (error) {
@@ -53,6 +59,7 @@ postsRouterApi.post(
 postsRouterApi.delete(
   "/delete",
   upload.fields([]),
+  authMiddleware.verifyToken,
   query("id_post").notEmpty().withMessage("id_post query required"),
   async (req: Request, res: Response) => {
     const errors = validationResult(req)

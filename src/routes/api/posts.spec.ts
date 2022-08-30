@@ -20,6 +20,7 @@ describe("Testing post api", () => {
 
   describe("GET /api/posts", () => {
     let created_id_post = ""
+    let user_token = ""
     it("responds with all posts", async () => {
       const test = await factory.app
         .get("/api/posts")
@@ -34,10 +35,42 @@ describe("Testing post api", () => {
       expect(data).to.eql(list_post, "posts is not deep equal")
     }).timeout(5000)
 
+    it("should error authorization", async () => {
+      await factory.app
+        .post("/api/posts/create")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(StatusCodes.UNAUTHORIZED)
+    })
+
+    it("should error validation register", async () => {
+      await factory.app
+        .post("/api/auth/register")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(StatusCodes.BAD_REQUEST)
+    })
+
+    it("should success register", async () => {
+      const test = await factory.app
+        .post("/api/auth/register")
+        .send({
+          email: "dummyfakeemail1908237491872364@gmail.com",
+          password: "stupiddummypasswordhere",
+          name: "I am dummy person",
+        })
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(StatusCodes.OK)
+      expect(test.body.data.token)
+      user_token = test.body.data.token
+    }).timeout(5000)
+
     it("should error validation new post", async () => {
       await factory.app
         .post("/api/posts/create")
         .set("Accept", "application/json")
+        .set("Authorization", `Bearer ${user_token}`)
         .expect("Content-Type", /json/)
         .expect(StatusCodes.BAD_REQUEST)
     })
@@ -50,6 +83,7 @@ describe("Testing post api", () => {
           description_post: "test description new post",
         })
         .set("Accept", "application/json")
+        .set("Authorization", `Bearer ${user_token}`)
         .expect("Content-Type", /json/)
         .expect(StatusCodes.CREATED)
       expect(test.body.data.identifiers[0].id_post, "id not created")
@@ -70,10 +104,19 @@ describe("Testing post api", () => {
       expect(data).to.eql(target_post, "post is not deep equal")
     }).timeout(5000)
 
+    it("should fail to delete created post without user token", async () => {
+      await factory.app
+        .delete(`/api/posts/delete`)
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(StatusCodes.UNAUTHORIZED)
+    })
+
     it("should fail delete created post without id_post", async () => {
       await factory.app
         .delete(`/api/posts/delete`)
         .set("Accept", "application/json")
+        .set("Authorization", `Bearer ${user_token}`)
         .expect("Content-Type", /json/)
         .expect(StatusCodes.BAD_REQUEST)
     })
@@ -82,9 +125,28 @@ describe("Testing post api", () => {
       await factory.app
         .delete(`/api/posts/delete?id_post=${created_id_post}`)
         .set("Accept", "application/json")
+        .set("Authorization", `Bearer ${user_token}`)
         .expect("Content-Type", /json/)
         .expect(StatusCodes.OK)
       created_id_post = ""
+    })
+
+    it("should fail delete user forbidden", async () => {
+      await factory.app
+        .delete(`/api/auth/delete`)
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(StatusCodes.UNAUTHORIZED)
+    })
+
+    it("should delete user", async () => {
+      await factory.app
+        .delete(`/api/auth/delete`)
+        .set("Accept", "application/json")
+        .set("Authorization", `Bearer ${user_token}`)
+        .expect("Content-Type", /json/)
+        .expect(StatusCodes.OK)
+      user_token = ""
     })
   })
 })

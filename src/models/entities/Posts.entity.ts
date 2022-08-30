@@ -1,19 +1,33 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm"
+import { UserEntity } from "./User.entity"
 
-@Entity('posts')
+@Entity("posts")
 export class PostsEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id_post: string
 
-  @Column({ type: 'varchar' })
+  @Column({ type: "varchar" })
   title_post: string
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   description_post?: string
 
-  @Column({ type: 'datetime', default: new Date() })
+  @Column({ type: "varchar" })
+  id_user_post: string
+
+  @Column({ type: "datetime", default: new Date() })
   created_at: Date
 
-  @Column({ type: 'datetime', default: new Date() })
+  @Column({ type: "datetime", default: new Date() })
   updated_at: Date
+
+  @ManyToOne(() => UserEntity, (user) => user.list_posts)
+  @JoinColumn({ name: "id_user_post" })
+  user_data?: UserEntity
 }
