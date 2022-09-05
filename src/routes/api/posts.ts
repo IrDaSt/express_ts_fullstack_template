@@ -70,10 +70,14 @@ postsRouterApi.delete(
     const { id_post } = req.query
     try {
       if (id_post) {
-        const result_delete_post = await postsServices.remove(
-          id_post.toString(),
-        )
-        return responses.Success(res, result_delete_post)
+        const target = await postsServices.getOnePostById(id_post.toString())
+        if (!target) {
+          return responses.NotFound(res, {
+            message: "post not found",
+          })
+        }
+        const result_delete = await postsServices.remove(id_post.toString())
+        return responses.Success(res, result_delete)
       }
     } catch (error) {
       return responses.InternalServerErrorCatch(res, error)
