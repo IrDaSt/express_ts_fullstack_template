@@ -6,5 +6,5 @@
   "ignore": [
     "public"
   ],
-  "exec": "ts-node -r tsconfig-paths/register ./src/index.ts"
+  "exec": "concurrently -n server,type-check \"ts-node --transpileOnly -r tsconfig-paths/register ./src/index.ts\" \"tsc --project tsconfig.json --noEmit\""
 }
