@@ -17,12 +17,12 @@ const verifyToken = (
     })
   else {
     const token = authorization.split(" ")[1]
-    const decrypt_token = cryptoUtils.decryptWithSecretKey(
-      token,
-      config.secret_token,
-    )
+    // const decrypt_token = cryptoUtils.decryptWithSecretKey(
+    //   token,
+    //   config.secret_token,
+    // )
     jwt.verify(
-      decrypt_token,
+      token,
       config.secret_token,
       (err, value: any | jwt.JwtPayload) => {
         if (err)
