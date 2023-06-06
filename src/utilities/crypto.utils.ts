@@ -2,7 +2,7 @@ import crypto from "crypto"
 
 const bufferEncryption = "utf8"
 const encryptionType = "aes-256-cbc"
-const encryptionEncoding = "base64"
+const encryptionEncoding = "hex"
 
 const generateSalt = () => crypto.randomBytes(12).toString("hex")
 
