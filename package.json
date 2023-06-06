@@ -1,12 +1,12 @@
 {
   "name": "express_ts_fullstack_template",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "Express Boilerplate Template Example with Typescript",
   "scripts": {
     "start": "node ./build/index.js",
     "build": "ts-node build.ts",
     "build:scss": "sass --style=compressed --error-css --stop-on-error --color --trace ./public/scss/:./public/dist/scss-css",
-    "build:docker": "docker build . -t danielwj00/express_ts_fullstack_template:1.8.2",
+    "build:docker": "docker build . -t danielwj00/express_ts_fullstack_template:1.8.3",
     "dev": "SET DEBUG=express-ts-fullstack-template:* & nodemon",
     "dev:scss:watch": "npm run build:scss && sass --style=compressed --error-css --update --watch --poll --stop-on-error --color --trace ./public/scss/:./public/dist/scss-css",
     "test": "npm run build && mocha --exit",
