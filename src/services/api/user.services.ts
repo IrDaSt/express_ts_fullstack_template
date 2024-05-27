@@ -2,7 +2,7 @@ import { UserEntity } from "@models/entities/User.entity"
 import typeormconn from "@utilities/typeorm.utils"
 
 const getOneUserById = (id_user: string) => {
-  return typeormconn.connection_one?.getRepository(UserEntity).findOne({
+  return typeormconn.connection?.getRepository(UserEntity).findOne({
     where: {
       id_user,
     },
@@ -10,7 +10,7 @@ const getOneUserById = (id_user: string) => {
 }
 
 const getOneUserByEmail = async (email: string) => {
-  return typeormconn.connection_one?.getRepository(UserEntity).findOne({
+  return typeormconn.connection?.getRepository(UserEntity).findOne({
     where: {
       email,
     },
@@ -26,7 +26,7 @@ const create = async ({
   email: string
   hashed_password: string
 }) => {
-  return typeormconn.connection_one?.getRepository(UserEntity).insert({
+  return typeormconn.connection?.getRepository(UserEntity).insert({
     name,
     email,
     password: hashed_password,
@@ -34,7 +34,7 @@ const create = async ({
 }
 
 const remove = async ({ id_user }: { id_user: string }) => {
-  return typeormconn.connection_one?.getRepository(UserEntity).delete({
+  return typeormconn.connection?.getRepository(UserEntity).delete({
     id_user,
   })
 }

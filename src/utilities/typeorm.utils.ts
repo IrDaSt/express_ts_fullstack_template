@@ -1,79 +1,79 @@
-import config from "@constants/config"
-import { PostsEntity } from "@models/entities/Posts.entity"
-import { UserEntity } from "@models/entities/User.entity"
 import { DataSource, DataSourceOptions } from "typeorm"
 import { loggerConsole } from "./winston.utils"
+import configDatabaseTemplate from "@constants/database/template"
 
-const connection_one: DataSourceOptions = {
-  type: "mariadb",
-  name: "connection_one",
-  host: config.database.one.host,
-  port: config.database.one.port,
-  username: config.database.one.user,
-  password: config.database.one.password,
-  database: config.database.one.database,
-  synchronize: false,
-  cache: {
-    type: "redis",
-    options: {
-      host: "localhost",
-      port: 6379,
-    },
-  },
-  entities: [PostsEntity, UserEntity],
-}
+class TypeORMConnection {
+  private connection_option: DataSourceOptions
+  private db: DataSource
 
-class TypeOrmConnection {
-  connection_one?: DataSource
-
-  constructor() {
+  constructor(connection: DataSource) {
+    this.db = connection
+    this.connection_option = connection.options
     this.init()
   }
 
-  init = async () => {
-    await this.connectOne()
-    if (!this.connection_one?.isInitialized) this.reconnectOne()
+  public get connection(): DataSource {
+    return this.db
   }
 
-  connectOne = async () => {
-    if (this.connection_one?.isInitialized) return
-    loggerConsole.info(`connecting to connection_one...`)
-    const data_source_connection_one = new DataSource(connection_one)
-    await data_source_connection_one
+  public init = async () => {
+    await this.connect()
+    if (!this.db.isInitialized) this.reconnect()
+  }
+
+  private connect = async () => {
+    loggerConsole.info(
+      `connecting to connection ${
+        this.connection_option.database?.toString() ?? ""
+      }...`,
+    )
+    const data_source_connection = new DataSource(this.connection_option)
+    await data_source_connection
       .initialize()
       .then((conn: DataSource) => {
-        this.connection_one = conn
-        loggerConsole.info(`connected to connection_one`)
+        this.db = conn
+        loggerConsole.info(
+          `connected to connection ${
+            this.connection_option.database?.toString() ?? ""
+          }`,
+        )
       })
       .catch((err: any) => {
-        loggerConsole.error("database connection_one error")
-        // eslint-disable-next-line no-console
-        console.error({
-          error: {
-            message: err.message,
-            stack: err.stack,
-            ...err,
+        loggerConsole.error(
+          `database connection error ${
+            this.connection_option.database?.toString() ?? ""
+          }`,
+          {
+            error: {
+              message: err.message,
+              stack: err.stack,
+              ...err,
+            },
           },
-        })
+        )
         return
       })
   }
 
-  disconnectOne = async () => {
-    if (this.connection_one?.isInitialized) await this.connection_one?.destroy()
+  public disconnect = async () => {
+    if (this.db.isInitialized) await this.db.destroy()
   }
 
-  reconnectOne = async () => {
-    await this.disconnectOne()
-    while (!this.connection_one?.isInitialized) {
-      await this.connectOne()
-      if (this.connection_one?.isInitialized) return
-      loggerConsole.info(`reconnecting to database_one after 10 seconds...`)
+  private reconnect = async () => {
+    await this.disconnect()
+    while (!this.db.isInitialized) {
+      loggerConsole.info(
+        `reconnecting to ${
+          this.connection_option.database?.toString() ?? ""
+        } after 10 seconds...`,
+      )
       await new Promise((resolve) => setTimeout(resolve, 10000))
+      await this.connect()
+      if (this.db.isInitialized) return
     }
   }
 }
 
-const typeormconn = new TypeOrmConnection()
+const typeormconn = new TypeORMConnection(configDatabaseTemplate)
 
 export default typeormconn

@@ -10,7 +10,7 @@ class MysqlConnection {
 
   async initConnection() {
     const conn = await mysql.createConnection({
-      ...config.database.one,
+      ...config.mysql_database.one,
     })
     this.conn = conn
   }

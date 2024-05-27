@@ -13,7 +13,11 @@
     "deploy:helm:install": "helm install express-ts-fullstack-template .kube_helm/",
     "deploy:helm:upgrade": "helm upgrade express-ts-fullstack-template .kube_helm/",
     "deploy:helm:uninstall": "helm uninstall express-ts-fullstack-template",
-    "deploy:helm:run": "kubectl port-forward services/express-ts-fullstack-template 5000:5000"
+    "deploy:helm:run": "kubectl port-forward services/express-ts-fullstack-template 5000:5000",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "make:migration": "cross-var npm run typeorm -- migration:create ./src/database/migration/$npm_config_db/$npm_config_name",
+    "db:migrate": "ts-node ./src/commands/db-migrate.ts",
+    "db:reset": "ts-node ./src/commands/db-drop.ts && ts-node ./src/commands/db-migrate.ts"
   },
   "keywords": [],
   "author": "IrDaSt",
@@ -71,6 +75,7 @@
     "chai": "^5.0.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cross-var": "^1.1.0",
     "debug": "^4.3.4",
     "dotenv": "^16.4.1",
     "ejs": "^3.1.8",
@@ -99,6 +104,7 @@
   "devDependencies": {
     "@types/async": "^3.2.24",
     "@types/chai": "^4.3.11",
+    "@types/cli-progress": "^3.11.5",
     "@types/cookie-parser": "^1.4.6",
     "@types/cors": "^2.8.17",
     "@types/debug": "^4.1.12",
@@ -117,6 +123,7 @@
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
+    "cli-progress": "^3.12.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "nodemon": "^3.0.3",

@@ -8,8 +8,9 @@ export class TestFactory {
   private _app: Express.Application
   private _server: HttpServer
 
-  public get app(): supertest.SuperTest<supertest.Test> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  public get app(): supertest.Agent {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return supertest(this._app)
   }
 
@@ -31,6 +32,6 @@ export class TestFactory {
    */
   public async close(): Promise<void> {
     this._server.close()
-    await typeormconn.disconnectOne()
+    await typeormconn.disconnect()
   }
 }

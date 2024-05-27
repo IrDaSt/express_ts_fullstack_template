@@ -43,6 +43,14 @@ For using scss as your main styling, for the best practices the system will only
 
 After that, the scss files will be compiled every detected change to **public/dist/scss-css/** folder.
 
+# Database Migrations
+
+Use this command to make migration file
+
+```bash
+npm run make:migration --db=template --name=create_template_posts_table
+```
+
 # Production Build
 
 To build a production ready project, at first, you just need to run this line at your terminal.

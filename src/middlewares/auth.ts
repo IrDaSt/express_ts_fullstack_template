@@ -17,13 +17,14 @@ const verifyToken = (
     })
   else {
     const token = authorization.split(" ")[1]
-    // const decrypt_token = cryptoUtils.decryptWithSecretKey(
-    //   token,
-    //   config.secret_token,
-    // )
-    jwt.verify(
+    const decrypt_token = cryptoUtils.decryptWithSecretKey(
       token,
       config.secret_token,
+    )
+    jwt.verify(
+      decrypt_token,
+      config.secret_token,
+      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
       (err, value: any | jwt.JwtPayload) => {
         if (err)
           return responses.Forbidden(res, {

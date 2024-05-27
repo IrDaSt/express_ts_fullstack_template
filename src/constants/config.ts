@@ -5,7 +5,7 @@ dotenv.config({
 
 const config = {
   port: Number(process.env.PORT || "4000"),
-  database: {
+  mysql_database: {
     one: {
       host: process.env.DB_HOST || "localhost",
       user: process.env.DB_USER || "admin",

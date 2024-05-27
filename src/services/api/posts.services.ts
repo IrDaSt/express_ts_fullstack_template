@@ -2,19 +2,17 @@ import { PostsEntity } from "@models/entities/Posts.entity"
 import typeormconn from "@utilities/typeorm.utils"
 
 const getAllPosts = async () => {
-  const result = await typeormconn.connection_one
-    ?.getRepository(PostsEntity)
-    .find({
-      order: {
-        created_at: "DESC",
-      },
-      relations: ["user_data"],
-    })
+  const result = await typeormconn.connection?.getRepository(PostsEntity).find({
+    order: {
+      created_at: "DESC",
+    },
+    relations: ["user_data"],
+  })
   return result
 }
 
 const getOnePostById = async (id_post: string) => {
-  const result = await typeormconn.connection_one
+  const result = await typeormconn.connection
     ?.getRepository(PostsEntity)
     .findOne({
       where: {
@@ -39,14 +37,14 @@ const create = async ({
   if (description_post !== undefined)
     new_post.description_post = description_post
   new_post.id_user_post = id_user_post
-  const result_insert = await typeormconn.connection_one
+  const result_insert = await typeormconn.connection
     ?.getRepository(PostsEntity)
     .insert(new_post)
   return result_insert
 }
 
 const remove = async (id_post: string) => {
-  return typeormconn.connection_one?.getRepository(PostsEntity).delete({
+  return typeormconn.connection?.getRepository(PostsEntity).delete({
     id_post,
   })
 }
